@@ -131,7 +131,7 @@ export function NavigationHeader({ onRoleSwitch }: NavigationHeaderProps) {
                       {user?.email}
                     </p>
                     <Badge variant="secondary" className="w-fit mt-1">
-                      {user?.role?.charAt(0).toUpperCase() + user?.role?.slice(1)}
+                      {user?.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : 'User'}
                     </Badge>
                   </div>
                   <DropdownMenuSeparator />

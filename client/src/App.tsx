@@ -11,6 +11,8 @@ import Landing from "@/pages/landing";
 import VendorDashboard from "@/pages/vendor-dashboard";
 import SupplierDashboard from "@/pages/supplier-dashboard";
 import AdminDashboard from "@/pages/admin-dashboard";
+import Orders from "@/pages/orders";
+import SpecialRequests from "@/pages/special-requests";
 
 function AppContent() {
   const { user, isLoading } = useAuth();
@@ -42,6 +44,8 @@ function AppContent() {
         <Route path="/vendor" component={VendorDashboard} />
         <Route path="/supplier" component={SupplierDashboard} />
         <Route path="/admin" component={AdminDashboard} />
+        <Route path="/orders" component={Orders} />
+        <Route path="/special-requests" component={SpecialRequests} />
         <Route component={NotFound} />
       </Switch>
     </div>

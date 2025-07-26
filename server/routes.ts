@@ -123,6 +123,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.put('/api/products/:id', authenticateToken, requireRole(['admin']), async (req: any, res: Response) => {
+    try {
+      const product = await storage.updateProduct(req.params.id, req.body);
+      res.json(product);
+    } catch (error) {
+      console.error('Error updating product:', error);
+      res.status(500).json({ message: 'Failed to update product' });
+    }
+  });
+
+  app.delete('/api/products/:id', authenticateToken, requireRole(['admin']), async (req: any, res: Response) => {
+    try {
+      await storage.deleteProduct(req.params.id);
+      res.json({ message: 'Product deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      res.status(500).json({ message: 'Failed to delete product' });
+    }
+  });
+
   // Order routes
   app.post('/api/orders', authenticateToken, requireRole(['vendor']), async (req: any, res: Response) => {
     try {
@@ -238,6 +258,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     } catch (error) {
       console.error('Get special requests error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
+  app.get('/api/special-requests/vendor', authenticateToken, requireRole(['vendor']), async (req: any, res: Response) => {
+    try {
+      const requests = await storage.getSpecialRequestsByVendor(req.user.id);
+      res.json(requests);
+    } catch (error) {
+      console.error('Get vendor special requests error:', error);
       res.status(500).json({ message: 'Internal server error' });
     }
   });

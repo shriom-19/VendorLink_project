@@ -35,9 +35,9 @@ export default function VendorDashboard() {
     },
   });
 
-  const categories = ['all', ...new Set(products.map((p: Product) => p.category))];
+  const categories = ['all', ...Array.from(new Set((products as Product[]).map((p: Product) => p.category)))];
 
-  const filteredProducts = products.filter((product: Product) => {
+  const filteredProducts = (products as Product[]).filter((product: Product) => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          product.description?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
@@ -109,11 +109,21 @@ export default function VendorDashboard() {
                 <CardTitle>Quick Actions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
-                <Button variant="outline" className="w-full justify-start" size="sm">
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start" 
+                  size="sm"
+                  onClick={() => window.location.href = '/orders'}
+                >
                   <RefreshCw className="h-4 w-4 mr-2" />
-                  Reorder Last Week
+                  View Orders
                 </Button>
-                <Button variant="outline" className="w-full justify-start" size="sm">
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start" 
+                  size="sm"
+                  onClick={() => window.location.href = '/special-requests'}
+                >
                   <Plus className="h-4 w-4 mr-2" />
                   Special Request
                 </Button>

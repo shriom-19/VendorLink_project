@@ -37,7 +37,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [items]);
 
   const calculateDiscount = (product: Product, quantity: number) => {
-    if (quantity >= product.bulkDiscountThreshold && product.bulkDiscountPercentage) {
+    if (product.bulkDiscountThreshold && quantity >= product.bulkDiscountThreshold && product.bulkDiscountPercentage) {
       return Number(product.bulkDiscountPercentage);
     }
     return 0;

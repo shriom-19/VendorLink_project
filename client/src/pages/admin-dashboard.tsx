@@ -119,6 +119,34 @@ export default function AdminDashboard() {
     },
   });
 
+  // Delete product mutation
+  const deleteProductMutation = useMutation({
+    mutationFn: async (productId: string) => {
+      const response = await fetch(`/api/products/${productId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) throw new Error('Failed to delete product');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/products'] });
+      toast({
+        title: "Product deleted",
+        description: "The product has been successfully removed.",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Failed to delete product",
+        description: error.message || "There was an error deleting the product.",
+        variant: "destructive",
+      });
+    },
+  });
+
   // Update order status mutation
   const updateOrderStatusMutation = useMutation({
     mutationFn: async ({ orderId, status }: { orderId: string; status: string }) => {
@@ -376,7 +404,7 @@ export default function AdminDashboard() {
                       <tr key={order.id} className="border-b border-gray-100 hover:bg-gray-50">
                         <td className="py-3 px-4 font-mono text-sm">#{order.id.slice(-8)}</td>
                         <td className="py-3 px-4">{order.vendor?.firstName} {order.vendor?.lastName}</td>
-                        <td className="py-3 px-4">{new Date(order.orderDate).toLocaleDateString()}</td>
+                        <td className="py-3 px-4">{order.orderDate ? new Date(order.orderDate).toLocaleDateString() : 'N/A'}</td>
                         <td className="py-3 px-4 font-semibold">₹{Number(order.totalAmount).toFixed(2)}</td>
                         <td className="py-3 px-4">
                           <Select
@@ -424,16 +452,23 @@ export default function AdminDashboard() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {products.map((product: Product) => (
+                {(products as Product[]).map((product: Product) => (
                   <Card key={product.id} className="hover:shadow-md transition-shadow">
                     <CardContent className="p-4">
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="font-semibold text-lg">{product.name}</h3>
                         <div className="flex space-x-1">
-                          <Button variant="ghost" size="sm">
+                          <Button variant="ghost" size="sm" title="Edit Product">
                             <Edit className="h-4 w-4" />
                           </Button>
-                          <Button variant="ghost" size="sm" className="text-red-600">
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            className="text-red-600 hover:text-red-800"
+                            onClick={() => deleteProductMutation.mutate(product.id)}
+                            disabled={deleteProductMutation.isPending}
+                            title="Delete Product"
+                          >
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>
@@ -484,7 +519,7 @@ export default function AdminDashboard() {
                           {request.budgetPerUnit && (
                             <span>Budget: <span className="font-medium">₹{Number(request.budgetPerUnit).toFixed(2)}/{request.unit}</span></span>
                           )}
-                          <span>Date: <span className="font-medium">{new Date(request.createdAt).toLocaleDateString()}</span></span>
+                          <span>Date: <span className="font-medium">{request.createdAt ? new Date(request.createdAt).toLocaleDateString() : 'N/A'}</span></span>
                         </div>
                       </div>
                       <Badge className={getStatusColor(request.status)}>
