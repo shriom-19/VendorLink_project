@@ -1,0 +1,110 @@
+You are a full-stack web developer. Build a complete, fully functional full-stack web application from scratch.
+
+## Project Title: Raw Material Supplier Platform for Street Vendors
+
+---
+
+## Objective:
+Create a platform where street vendors can order raw materials daily, and suppliers can view aggregated demand and supply those materials. Items are delivered to vendors every morning. Include admin management, supplier engagement, and order fulfillment. Add a feature for special item requests by vendors.
+
+---
+
+## Tech Stack:
+- Frontend: React.js with Tailwind CSS or Bootstrap
+- Backend: Django + Django REST Framework
+- Database: PostgreSQL (or SQLite for dev)
+- Deployment: Frontend on Vercel/Netlify, Backend on Render/Railway
+
+---
+
+## Frontend Requirements:
+1. **Vendor Portal:**
+   - Product Catalog with categories and search
+   - Add to Cart with quantity control
+   - Bulk Discount Logic (e.g., 10% off for 100+ units)
+   - Checkout Page with delivery address input
+   - Order History page with reorder option
+   - Special Request Form for unavailable items
+   - User Login/Register with JWT handling
+
+2. **Supplier Portal:**
+   - Dashboard showing total daily demand per item
+   - Form to offer available quantity and pricing
+   - Special Request Dashboard (list of vendor requests, form to offer supply)
+   - Track supplied items and payment status
+   - User Login/Register with JWT
+
+3. **Admin Panel:**
+   - Manage Vendors, Suppliers, Orders, Products
+   - Track aggregated demand and supply
+   - Manage dark store inventory and dispatch
+   - View and manage special item requests
+   - Dashboard with analytics (top items, supply gaps, delivery status)
+
+4. **Other Frontend Features:**
+   - Responsive Design (mobile + desktop)
+   - Axios for API calls
+   - Toast or Alert for notifications
+   - Secure route protection based on user roles
+
+---
+
+## Backend Requirements:
+1. **Models:**
+   - Vendor, Supplier, Product, Order, OrderItem
+   - SupplyOffer, SpecialRequest, SpecialRequestOffer
+   - Admin (use Django superuser)
+   
+2. **API Endpoints (REST):**
+   - Products: `GET /products/`
+   - Orders: `POST /orders/`, `GET /order-history/`
+   - Aggregated Demand: `GET /demand-summary/`
+   - Supply Offers: `POST /supply-offer/`, `GET /supply-status/`
+   - Special Request: 
+     - `POST /special-request/` (Vendor)
+     - `GET /special-request/` (Supplier/Admin)
+     - `POST /special-request/<id>/offer/` (Supplier)
+   - Auth: `POST /register/`, `POST /login/` (JWT auth)
+   
+3. **Features:**
+   - Daily demand aggregation logic
+   - Partial fulfillment by suppliers
+   - Supply tracking per item
+   - Delivery scheduling and status updates
+   - Admin panel via Django admin
+   - JWT Authentication for role-based access
+
+---
+
+## Database:
+- Use PostgreSQL (SQLite for dev)
+- Create migrations and seed data:
+  - 10 sample products
+  - 5 vendors
+  - 3 suppliers
+
+---
+
+## Integration & Deployment:
+- Connect frontend to backend using Axios and CORS
+- Deploy backend on Render/Railway with live API endpoint
+- Deploy frontend on Netlify/Vercel, set env variable for API
+- Include README with full setup, run, and deploy instructions
+
+---
+
+## Bonus (Optional Features):
+- Order confirmation via email (simulated)
+- Admin alerts for unfulfilled requests
+- Dashboard analytics with charts
+- Future-ready structure to add AI demand forecasting
+
+---
+
+## Deliverables:
+1. Complete source code organized into `/frontend` and `/backend`
+2. Database schema + migrations
+3. README file with installation and deployment guide
+4. Example `.env` files for backend and frontend
+
+Instructions: Generate all code step-by-step and ensure full connectivity between frontend and backend. Explain each part briefly before showing the code.
