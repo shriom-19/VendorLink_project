@@ -1,0 +1,94 @@
+Here’s your **complete copy-ready prompt**:
+
+---
+
+### 📋 Admin Panel Prompt (with Supplier & Vendor Integration)
+
+> **Build a React-based Admin Panel that is fully integrated with my Django backend Raw Material Supplier Platform.**
+
+### Key Requirements:
+
+This Admin Panel must allow full management of **Vendors, Suppliers, Orders, Supplies, and Special Requests**.
+
+---
+
+### Features to Implement:
+
+#### 1. **Vendor Management**
+
+* View list of all registered vendors (username, contact info, address).
+* Search/filter vendors.
+* View all orders placed by each vendor.
+* Activate/Deactivate vendor accounts.
+* Delete vendor (with confirmation).
+
+#### 2. **Supplier Management**
+
+* View list of all registered suppliers (company name, contact info).
+* See all supply offers made by each supplier.
+* Activate/Deactivate supplier accounts.
+* Delete supplier (with confirmation).
+
+#### 3. **Product Catalog Management**
+
+* Add, edit, delete products.
+* Show all products with search/filter by category.
+* Control product pricing.
+
+#### 4. **Order Tracking & Fulfillment**
+
+* Dashboard table showing all orders (vendor name, products, quantities, status).
+* Expand each order to see detailed items.
+* Mark order as delivered or pending.
+* Filter by date range and vendor.
+
+#### 5. **Supply Offers Tracking**
+
+* View all supplier offers for each product in demand.
+* Show supplier name, offered quantity, price, and fulfillment status.
+* Approve or reject offers (optional).
+
+#### 6. **Special Request Management**
+
+* View all special item requests submitted by vendors.
+* For each request, see all supplier offers and manage them.
+* Mark requests as fulfilled or pending.
+
+#### 7. **Dashboard Analytics**
+
+* Charts showing:
+
+  * Top demanded products.
+  * Supply vs demand ratio.
+  * Pending vs delivered orders.
+  * Total vendors and suppliers.
+* Alert banner for unfulfilled requests or supply gaps.
+
+#### 8. **Authentication & Access Control**
+
+* Admin login (JWT) — only Admins can access this dashboard.
+* Secure routes and token management.
+* Logout option.
+
+---
+
+### Tech Stack:
+
+* **Frontend**: React.js + Tailwind CSS or Bootstrap (your choice).
+* **Charts**: Use Chart.js or Recharts.
+* **API Integration**: Axios, connect to Django backend via `/api/...` endpoints.
+* **JWT Auth**: Store token in localStorage, include in Axios headers.
+* **Routing**: Use React Router. All Admin routes should be protected.
+
+---
+
+### Final Deliverable:
+
+* Fully functional **Admin Panel** under `/admin-dashboard` route.
+* All data fetched live from backend APIs for vendors, suppliers, orders, products, and requests.
+* Responsive design, intuitive UI, and connected analytics.
+* Optional: Button to export data (CSV for orders/supplies).
+
+---
+
+Let me know if you want a **code scaffold** for this right now.

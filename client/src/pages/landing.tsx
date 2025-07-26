@@ -246,6 +246,7 @@ export default function Landing() {
                           <SelectContent>
                             <SelectItem value="vendor">Vendor - Buy raw materials</SelectItem>
                             <SelectItem value="supplier">Supplier - Sell materials</SelectItem>
+                            <SelectItem value="admin">Administrator - Manage platform</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>

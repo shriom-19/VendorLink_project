@@ -289,6 +289,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin routes for comprehensive management
+  app.get('/api/admin/users', authenticateToken, requireRole(['admin']), async (req: Request, res: Response) => {
+    try {
+      const users = await storage.getAllUsers();
+      res.json(users);
+    } catch (error) {
+      console.error('Get all users error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
+  app.get('/api/admin/orders', authenticateToken, requireRole(['admin']), async (req: Request, res: Response) => {
+    try {
+      const orders = await storage.getAllOrdersWithDetails();
+      res.json(orders);
+    } catch (error) {
+      console.error('Get all orders error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
+  app.patch('/api/admin/orders/:id/status', authenticateToken, requireRole(['admin']), async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+      const order = await storage.updateOrderStatus(id, status);
+      res.json(order);
+    } catch (error) {
+      console.error('Update order status error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
+  app.patch('/api/admin/users/:id/status', authenticateToken, requireRole(['admin']), async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const { isActive } = req.body;
+      const user = await storage.updateUserStatus(id, isActive);
+      res.json(user);
+    } catch (error) {
+      console.error('Update user status error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
   // Analytics routes
   app.get('/api/analytics/vendor', authenticateToken, requireRole(['vendor']), async (req: any, res: Response) => {
     try {

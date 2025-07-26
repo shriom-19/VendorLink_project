@@ -422,6 +422,24 @@ export class DatabaseStorage implements IStorage {
       revenueToday: Number(revenueToday[0]?.sum || 0),
     };
   }
+
+  // Admin-specific methods for comprehensive management
+  async getAllUsers(): Promise<User[]> {
+    return await db.select().from(users);
+  }
+
+  async getAllOrdersWithDetails(): Promise<any[]> {
+    return await db.select().from(orders);
+  }
+
+  async updateUserStatus(userId: string, isActive: boolean): Promise<User> {
+    const [user] = await db
+      .update(users)
+      .set({ isActive, updatedAt: new Date() })
+      .where(eq(users.id, userId))
+      .returning();
+    return user;
+  }
 }
 
 export const storage = new DatabaseStorage();

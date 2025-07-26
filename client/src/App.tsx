@@ -13,6 +13,7 @@ import SupplierDashboard from "@/pages/supplier-dashboard";
 import AdminDashboard from "@/pages/admin-dashboard";
 import Orders from "@/pages/orders";
 import SpecialRequests from "@/pages/special-requests";
+import Checkout from "@/pages/checkout";
 
 function AppContent() {
   const { user, isLoading } = useAuth();
@@ -36,7 +37,7 @@ function AppContent() {
     <div className="min-h-screen bg-gray-50">
       <NavigationHeader />
       <Switch>
-        <Route path="/">
+        <Route path="/" exact>
           {user.role === 'vendor' && <VendorDashboard />}
           {user.role === 'supplier' && <SupplierDashboard />}
           {user.role === 'admin' && <AdminDashboard />}
@@ -44,8 +45,27 @@ function AppContent() {
         <Route path="/vendor" component={VendorDashboard} />
         <Route path="/supplier" component={SupplierDashboard} />
         <Route path="/admin" component={AdminDashboard} />
-        <Route path="/orders" component={Orders} />
-        <Route path="/special-requests" component={SpecialRequests} />
+        <Route path="/orders">
+          <AuthProvider>
+            <CartProvider>
+              <Orders />
+            </CartProvider>
+          </AuthProvider>
+        </Route>
+        <Route path="/special-requests">
+          <AuthProvider>
+            <CartProvider>
+              <SpecialRequests />
+            </CartProvider>
+          </AuthProvider>
+        </Route>
+        <Route path="/checkout">
+          <AuthProvider>
+            <CartProvider>
+              <Checkout />
+            </CartProvider>
+          </AuthProvider>
+        </Route>
         <Route component={NotFound} />
       </Switch>
     </div>

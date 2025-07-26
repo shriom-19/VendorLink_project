@@ -155,6 +155,12 @@ export default function VendorDashboard() {
                           {totalItems} items • ₹{totalAmount.toFixed(2)}
                         </span>
                       </div>
+                      <Button 
+                        onClick={() => window.location.href = '/checkout'}
+                        className="bg-green-600 hover:bg-green-700"
+                      >
+                        Proceed to Checkout
+                      </Button>
                     </div>
                   )}
                 </div>
